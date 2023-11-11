@@ -1,0 +1,77 @@
+.centered-flowChart {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5%;
+}
+
+.grade {
+    font-size: 2vw;
+    /* Use a relative unit for font size */
+    margin: 1%;
+    transition: transform 0.3s;
+}
+
+.graded {
+    font-size: 4vw;
+    /* Use a relative unit for font size */
+    color: black;
+    font-family: fantasy;
+    transition: transform 0.3s;
+}
+
+.graded:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}
+
+.grade:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+    color: black;
+    /* Increase the size on hover */
+}
+
+.arrow {
+    width: 2%;
+    height: 2%;
+    margin: 1%;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    width: 15%;
+    min-width: 200px;
+    /* Add a minimum width for small screens */
+    height: 30%;
+    min-height: 200px;
+    /* Add a minimum height for small screens */
+    margin-left: 1.5%;
+    margin-top: 2%;
+    border-radius: 10px;
+    /* Use 'px' for border-radius */
+    text-align: center;
+}
+
+
+
+.cardxp {
+    display: flex;
+    height: 35%;
+}
+
+@media (max-width: 768px) {
+    .cardxp {
+        display: flex;
+        flex-direction: column;
+        width: 400px;
+
+    }
+
+    .cards {
+        margin-left: 50px;
+        width: 400px;
+    }
+
+}

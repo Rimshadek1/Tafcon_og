@@ -1,0 +1,137 @@
+.slider-box {
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    height: 250px;
+    position: relative;
+}
+
+/* Base styles for larger screens */
+.boxes {
+    width: 400px;
+    height: 220px;
+    border-radius: 30px;
+    margin-left: 10px;
+    flex-shrink: 0;
+    cursor: move;
+    display: flex;
+    justify-content: space-between;
+    /* Prevent boxes from shrinking */
+}
+
+
+
+
+
+
+
+
+
+/* Media query for smaller screens (e.g., mobile devices) */
+@media (max-width: 500px) {
+    .boxes {
+        width: 70%;
+        height: 220px;
+        margin: 0;
+        border-radius: 15px;
+        margin-left: 10px;
+    }
+
+
+    .slider-box {
+        display: flex;
+        overflow: hidden;
+        width: 450px;
+        height: 250px;
+        position: relative;
+    }
+
+    .slider-nav {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+    }
+
+    .slider-nav .prev,
+    .slider-nav .next {
+        cursor: pointer;
+    }
+
+}
+
+.content {
+    flex-grow: 1;
+}
+
+.add {
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+/* Add styles for the slider navigation arrows (optional) */
+.slider-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.slider-nav .prev,
+.slider-nav .next {
+    cursor: pointer;
+}
+
+.location {
+    position: relative;
+    margin-left: 10px;
+    margin-top: 10px;
+    font-weight: 100;
+}
+
+.location1 {
+    position: relative;
+    margin-left: 10px;
+    margin-top: -10px;
+    font-weight: 500;
+}
+
+.slot {
+    position: relative;
+    margin-left: 50px;
+    margin-top: 40px;
+    font-weight: 100;
+}
+
+.slot1 {
+    position: relative;
+    margin-left: 50px;
+    margin-top: -10px;
+    font-weight: 500;
+}
+
+.class {
+    width: 30px;
+    height: 30px;
+    border-radius: 10px;
+    display: flex;
+
+}
+
+.classed {
+    margin-top: 5px;
+    margin-left: 7px;
+    color: aliceblue;
+}
+
+.loader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}

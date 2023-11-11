@@ -1,0 +1,10 @@
+/* CSS for image zoom effect */
+.zoom-image {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.zoom-image.zoomed {
+    transform: scale(10);
+    /* Adjust the scale factor for zoom level */
+}
