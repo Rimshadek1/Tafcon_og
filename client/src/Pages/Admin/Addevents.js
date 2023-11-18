@@ -8,7 +8,6 @@ function Addevents() {
     const [event, setEvent] = useState()
     const [type, setType] = useState()
     const [slot, setSlot] = useState()
-    const [slotCap, setSlotCap] = useState()
     const [slotMain, setSlotMain] = useState()
     const [slotSuper, setSlotSuper] = useState()
     const [ref, setRef] = useState()
@@ -23,7 +22,6 @@ function Addevents() {
         formData.append('event', event);
         formData.append('type', type);
         formData.append('slot', slot);
-        formData.append('slotCap', slotCap);
         formData.append('slotMain', slotMain);
         formData.append('slotSuper', slotSuper);
         formData.append('ref', ref);
@@ -147,19 +145,6 @@ function Addevents() {
                                 <option value="Lunch">Lunch</option>
                                 <option value="Night">Night</option>
                             </select>
-                        </div>
-
-                        <div className="form-group mt-2">
-                            <label htmlFor="slotCap">Slot for captain</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="slotCap"
-                                placeholder="Slot for Captain"
-                                id="slotCap"
-                                required
-                                onChange={(e) => setSlotCap(e.target.value)}
-                            />
                         </div>
                         <div className="form-group mt-2">
                             <label htmlFor="slotmain">Slot for Main Boy</label>

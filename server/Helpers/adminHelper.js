@@ -124,7 +124,6 @@ module.exports = {
                     date: proDetails.date,
                     event: proDetails.event,
                     slot: proDetails.slot,
-                    slotCap: proDetails.slotCap,
                     slotMain: proDetails.slotMain,
                     slotSuper: proDetails.slotSuper,
 
@@ -156,7 +155,7 @@ module.exports = {
             });
     },
     getcalander: (req, res) => {
-        db.get().collection(collection.eventCollection).find().toArray().then((events) => {
+        db.get().collection(collection.eventdateCollection).find().toArray().then((events) => {
             res.json({ events })
         }).catch((error) => {
             console.error(error);
@@ -215,7 +214,6 @@ module.exports = {
                 const captainDetails = await db.get().collection(collection.captainCollection).find({
                     eventId: new ObjectId(proId)
                 }).toArray();
-
                 resolve(captainDetails);
 
             } catch (error) {
@@ -225,9 +223,11 @@ module.exports = {
     },
     isFine: (proId) => {
         return new Promise(async (resolve, reject) => {
+
             const bookingDetails = await db.get().collection(collection.bookCollection).find({
                 'events.item': new ObjectId(proId)
             }).toArray();
+            // rest of your code
             if (bookingDetails && bookingDetails.length > 0) {
                 const userIds = bookingDetails.map((booking) => booking.user);
 
@@ -259,6 +259,7 @@ module.exports = {
                     usersWithFines: [], Onsite: [], OtGiven: [], TeGiven: []
                 });
             }
+
         });
     }
 
@@ -586,7 +587,13 @@ module.exports = {
                     case 'A1':
                         salary = 450;
                         break;
-                    case 'supervisor':
+                    case 'S-A3':
+                        salary = 470;
+                        break;
+                    case 'S-A2':
+                        salary = 470;
+                        break;
+                    case 'S-A1':
                         salary = 470;
                         break;
                     case 'main-boy':
@@ -739,6 +746,18 @@ module.exports = {
                 date: currentDate,
             };
             db.get().collection(collection.notificationCollection).insertOne(notifications)
+                .then((response) => {
+                    resolve(response);
+                })
+                .catch((err) => {
+                    reject(err);
+                });
+        });
+    },
+    addDateEvent: (eventDetails) => {
+        return new Promise((resolve, reject) => {
+
+            db.get().collection(collection.eventdateCollection).insertOne(eventDetails)
                 .then((response) => {
                     resolve(response);
                 })

@@ -44,26 +44,26 @@ app.use(function (req, res, next) {
 const Port = process.env.PORT
 
 
-async function startServer() {
-    try {
-        await db.connect();
-        console.log("Database connected");
+// async function startServer() {
+//     try {
+//         await db.connect();
+//         console.log("Database connected");
 
-        app.listen(Port, () => {
-            console.log(`Server is running at ${Port}`);
-        });
-    } catch (err) {
-        console.error('Error: ' + err);
-    }
-}
-
-startServer();
-// db.connect((err) => {
-//     if (err)
-//         console.log('error ' + err);
-//     else
 //         app.listen(Port, () => {
 //             console.log(`Server is running at ${Port}`);
 //         });
-//     console.log("Database connected");
-// });
+//     } catch (err) {
+//         console.error('Error: ' + err);
+//     }
+// }
+
+// startServer();
+db.connect((err) => {
+    if (err)
+        console.log('error ' + err);
+    else
+        app.listen(Port, () => {
+            console.log(`Server is running at ${Port}`);
+        });
+    console.log("Database connected");
+});

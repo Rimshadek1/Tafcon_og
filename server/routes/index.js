@@ -4,6 +4,7 @@ var router = express.Router();
 const fs = require('fs');
 const jwt = require('jsonwebtoken');
 const adminHelper = require('../Helpers/adminHelper');
+const otpsender = require('../Helpers/otpsender');
 const path = require('path');
 require('dotenv').config();
 const jwtsecret = process.env.JWTSECRET
@@ -26,7 +27,10 @@ const verifyUser = (req, res, next) => {
                     decoded.role === 'A4' ||
                     decoded.role === 'A5' ||
 
-                    decoded.role === 'supervisor' ||
+                    decoded.role === 'S-A1' ||
+                    decoded.role === 'S-A2' ||
+                    decoded.role === 'S-A3' ||
+                    decoded.role === 'S-A3' ||
                     decoded.role === 'main-boy' ||
                     decoded.role === 'captain' ||
                     decoded.role === 'admin'
@@ -163,12 +167,52 @@ router.get('/profile', (req, res) => {
         res.status(401).json('no token')
     }
 })
-router.get('/', verifyUser, (req, res) => {
+router.post('/sendotp', (req, res) => {
+    const { email } = req.body;
+    console.log(email);
+
+    otpsender.userOtpsend(email)
+        .then((result) => {
+            res.json({ status: 'ok' });
+        })
+        .catch((error) => {
+            console.error('Error sending OTP:', error);
+            res.status(500).json({ status: 'error', message: 'Internal server error' });
+        });
+});
+router.post('/enterotp', async (req, res) => {
+    try {
+        const { otp, email } = req.body;
+        await otpsender.userOtpCheck(otp, email);
+        res.json({ status: 'ok' });
+    } catch (error) {
+        console.error('Error in /enterotp endpoint:', error);
+        res.status(500).json({ status: 'error', message: error.message });
+    }
+});
+router.post('/changepass', async (req, res) => {
+    try {
+        const { password, email } = req.body;
+        const result = await otpsender.userPasswordchange(password, email);
+        console.log(result);
+        res.json(result);
+    } catch (error) {
+        console.error('Error in /changepass endpoint:', error);
+        res.status(500).json({ status: 'error', message: error.message });
+    }
+});
+
+router.get('/home', verifyUser, (req, res) => {
     const token = req.cookies.token;
     jwt.verify(token, jwtsecret, (err, decoded) => {
+        try {
 
-        res.json({ status: 'please_load_again', id: decoded.id, role: decoded.role });
+            res.json({ id: decoded.id, role: decoded.role });
+        } catch (error) {
+            console.log(error);
+        }
     })
+
 })
 router.post('/logout', (req, res) => {
     res.clearCookie('token');
@@ -361,6 +405,30 @@ router.get('/notification', verifyUser, (req, res) => {
         res.json({ notification })
     })
 })
+router.get('/isBooked', (req, res) => {
+    const token = req.cookies.token;
+    jwt.verify(token, jwtsecret, async (err, decoded) => {
+        if (err) {
+            console.error("JWT verification error:", err);
+            return res.status(401).json({ status: 'error', message: 'Unauthorized' });
+        }
+
+        const userId = decoded.id;
+        try {
+            userHelper.isBooked(userId).then((bookedEvents) => {
+                // Use bookedEvents as needed, for example, send it as a JSON response
+                res.json({ status: 'success', bookedEvents });
+            }).catch((error) => {
+                console.error("Error:", error);
+                res.status(500).json({ status: 'error', message: 'Failed to retrieve booked events' });
+            });
+        } catch (error) {
+            console.error("Error:", error);
+            res.status(500).json({ status: 'error', message: 'Failed to retrieve role details' });
+        }
+    });
+});
+
 
 
 
@@ -371,8 +439,9 @@ router.get('/notification', verifyUser, (req, res) => {
 //admin routers
 
 router.get('/viewevents', verifyAdmin, (req, res) => {
-    res.json({ status: 'please_reload' });
+    res.status(200).send('please_reload');
 });
+
 
 router.get('/viewevent', verifyService, adminHelper.getAllEvents);
 router.delete('/admin/delete-event/:eventId', verifyAdmin, (req, res) => {
@@ -618,4 +687,14 @@ router.post('/notification', verifyAdmin, (req, res) => {
         res.json({ status: 'ok' })
     })
 })
+router.post('/adddateevent', verifyAdmin, (req, res) => {
+    adminHelper.addDateEvent(req.body)
+        .then((response) => {
+            res.json({ status: 'ok' });
+        })
+        .catch((error) => {
+            console.error('Error adding date event:', error);
+            res.status(500).json({ status: 'error', message: 'Internal server error' });
+        });
+});
 module.exports = router;

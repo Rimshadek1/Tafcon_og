@@ -137,10 +137,32 @@ function Roledetails() {
                         </svg>
                     </div>
 
-                    {role === 'supervisor' ? (
-                        <div className="graded" >SUPERVISOR</div>
+                    {role === 'S-A1' ? (
+                        <div className="graded" >S-A1</div>
                     ) : (
-                        <div className="grade" >Supervisor</div>
+                        <div className="grade" >S-A1</div>
+                    )}
+
+                    <div className="arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 64 64" id="arrow">
+                            <path fill="#FF396F" d="M37.9 46 24.1 32.3l13.8-13.7 2 2-11.8 11.7L39.9 44l-2 2"></path>
+                        </svg>
+                    </div>
+                    {role === 'S-A2' ? (
+                        <div className="graded" >S-A2</div>
+                    ) : (
+                        <div className="grade" >S-A2</div>
+                    )}
+
+                    <div className="arrow">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 64 64" id="arrow">
+                            <path fill="#FF396F" d="M37.9 46 24.1 32.3l13.8-13.7 2 2-11.8 11.7L39.9 44l-2 2"></path>
+                        </svg>
+                    </div>
+                    {role === 'S-A3' ? (
+                        <div className="graded" >S-A3</div>
+                    ) : (
+                        <div className="grade" >S-A3</div>
                     )}
 
                     <div className="arrow">

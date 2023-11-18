@@ -640,7 +640,26 @@ module.exports = {
                     reject(error);
                 });
         });
-    }
+    },
+    isBooked: (userId) => {
+        return new Promise(async (resolve, reject) => {
+            try {
+                const user = await db.get().collection(collection.bookCollection).findOne({
+                    user: new ObjectId(userId)
+                });
+
+                if (user && user.events) {
+                    // Extract event IDs booked by the user
+                    const bookedEventIds = user.events.map(event => event.item);
+                    resolve(bookedEventIds);
+                } else {
+                    resolve([]);
+                }
+            } catch (error) {
+                reject(error);
+            }
+        });
+    },
 
 
 

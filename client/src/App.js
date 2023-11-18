@@ -31,6 +31,13 @@ import ViewSalary from './Pages/Confirmedpdf/ViewSalary';
 import Dasboard from './Pages/Admin/Dashboard/Dasboard';
 import Notification from './Pages/Admin/Notification/Notification';
 import Viewnotification from './Pages/Admin/Notification/Viewnotification';
+import Addeventdate from './Pages/Admin/Dashboard/Addeventdate';
+import Forgetpass from './Pages/Login/Forgetpass';
+import EnterOtp from './Pages/Login/EnterOtp';
+import Changepass from './Pages/Login/Changepass';
+import Index from './Pages/Index/Index';
+import Landing from './Pages/Index/landing/Landing';
+import Career from './Pages/Index/career/Career';
 
 function App() {
   axios.defaults.withCredentials = true;
@@ -70,6 +77,13 @@ function App() {
             <Route path="/dashboard" element={<Dasboard />} />
             <Route path="/notification" element={<Notification />} />
             <Route path="/viewnotification" element={<Viewnotification />} />
+            <Route path="/addeventdate" element={<Addeventdate />} />
+            <Route path="/forgetpassword" element={<Forgetpass />} />
+            <Route path="/enterotp" element={<EnterOtp />} />
+            <Route path="/changepassword" element={<Changepass />} />
+            <Route path="/adminindex" element={<Index />} />
+            <Route path="/index" element={<Landing />} />
+            <Route path="/career" element={<Career />} />
 
 
 

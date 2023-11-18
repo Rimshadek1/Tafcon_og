@@ -19,17 +19,19 @@ function Viewevents() {
             });
     }, []);
     useEffect(() => {
-        axios.get('/viewevents').then(res => {
-            console.log(res.data);
-            if (res.data.status === 'please_reload') {
-
-                navigate('/viewevents')
-            } else {
-                alert('status failed')
-                navigate('/login')
-            }
-        }).catch(err => console.log(err))
+        axios.get('/viewevents')
+            .then(res => {
+                console.log(res.data);
+                if (res.data === 'please_reload') {
+                    navigate('/viewevents');
+                } else {
+                    alert('Status failed');
+                    navigate('/login');
+                }
+            })
+            .catch(err => console.error(err));
     }, []);
+
     const handleLogout = async () => {
         try {
             await axios.post('/logout').then((res) => {

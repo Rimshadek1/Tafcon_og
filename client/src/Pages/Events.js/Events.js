@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Events() {
     const [events, setEvents] = useState([]);
     const [role, setRole] = useState([]);
+    const [isEvent, setIsEvent] = useState([]);
 
 
     // goback
@@ -15,7 +16,7 @@ function Events() {
         e.preventDefault();
         navigate(-1);
     };
-    const bootstrapColors = ['bg-primary', 'bg-info', 'bg-danger', 'bg-secondary', 'bg-success'];
+    const bootstrapColors = ['bg-danger', 'bg-black', 'bg-danger', 'bg-primary', 'bg-success'];
 
 
     // Fetch events data
@@ -29,13 +30,21 @@ function Events() {
 
         }).catch(err => console.log(err))
     }, []);
+    //  Is booked checking
+    useEffect(() => {
+        axios.get('/isBooked').then(res => {
+            const bookedEvents = res.data.bookedEvents; // Assuming the response structure
+            setIsEvent(bookedEvents);
+        }).catch(err => console.log(err));
+    }, []);
+
 
     //booking
     function handleAddButtonClick(eventId) {
         const confirmed = window.confirm('Do you want to add this event to your list?');
 
         if (confirmed) {
-            axios.post(`/confirmbooking/${eventId}`)
+            axios.post(`http://localhost:3000/confirmbooking/${eventId}`)
                 .then((res) => {
                     if (res.data.status === 'success') {
                         alert('Booking confirmed');
@@ -56,7 +65,7 @@ function Events() {
         const confirmed = window.confirm('Do you want to add this event to your list?');
 
         if (confirmed) {
-            axios.post(`/confirmbookingMain/${eventId}`)
+            axios.post(`http://localhost:3000/confirmbookingMain/${eventId}`)
                 .then((res) => {
                     if (res.data.status === 'success') {
                         alert('Booking confirmed');
@@ -77,7 +86,7 @@ function Events() {
         const confirmed = window.confirm('Do you want to add this event to your list?');
 
         if (confirmed) {
-            axios.post(`/confirmbookingSuper/${eventId}`)
+            axios.post(`http://localhost:3000/confirmbookingSuper/${eventId}`)
                 .then((res) => {
                     if (res.data.status === 'success') {
                         alert('Booking confirmed');
@@ -96,17 +105,19 @@ function Events() {
     }
 
     useEffect(() => {
-        axios.get('/')
+
+        axios.get('/home')
             .then(res => {
-                if (res.data.status === 'please_load_again') {
+                if (res.data.role) {
                     setRole(res.data.role);
-                } else {
-                    navigate('/login');
-                    window.location.reload();
+                    navigate('/events');
                 }
             })
             .catch(err => console.log(err));
+
+
     }, []);
+
 
     return (
         <div>
@@ -157,9 +168,16 @@ function Events() {
                                     <div className={`card-block mb-2 ${bootstrapColors[index % bootstrapColors.length]}`}>
                                         <div className="card-main">
                                             <div className="card-button dropdown">
-                                                <button className="btn btn-warning rounded" onClick={() => handleAddButtonClickMain(event._id)}>
-                                                    Add
-                                                </button>
+                                                {Array.isArray(isEvent) && isEvent.includes(event._id) ? (
+                                                    <button className="rounded btn btn-success" disabled>
+                                                        ✔
+                                                    </button>
+                                                ) : (
+                                                    <button className="btn btn-warning rounded" onClick={() => handleAddButtonClickMain(event._id)}>
+                                                        Add
+                                                    </button>
+                                                )}
+
                                             </div>
                                             <div className="balance">
                                                 <span className="label">Location of site</span>
@@ -170,7 +188,6 @@ function Events() {
                                                     <span className="label">Date of site</span>
                                                     {event.date}
                                                 </div>
-
                                                 <div className="bottom">
                                                     <div className="card-number">
                                                         <span className="label">Reporting time</span>
@@ -198,9 +215,10 @@ function Events() {
 
 
 
+
                 {/* supervisors */}
 
-                {["admin", "main-boy", "supervisor", 'captain'].includes(role) && events.some(event => event.slotSuper > 0) && (
+                {["admin", "main-boy", "S-A3", "S-A2", "S-A1", 'captain'].includes(role) && events.some(event => event.slotSuper > 0) && (
                     <div>
                         <div className="section-heading padding">
                             <h2 className="title">Works for Supervisors</h2>
@@ -212,9 +230,16 @@ function Events() {
                                     <div className={`card-block mb-2 ${bootstrapColors[index % bootstrapColors.length]}`}>
                                         <div className="card-main">
                                             <div className="card-button dropdown">
-                                                <button className="btn btn-warning rounded" onClick={() => handleAddButtonClickSuper(event._id)}>
-                                                    Add
-                                                </button>
+                                                {Array.isArray(isEvent) && isEvent.includes(event._id) ? (
+                                                    <button className="rounded btn btn-success" disabled>
+                                                        ✔
+                                                    </button>
+                                                ) : (
+                                                    <button className="btn btn-warning rounded" onClick={() => handleAddButtonClickSuper(event._id)}>
+                                                        Add
+                                                    </button>
+                                                )}
+
                                             </div>
                                             <div className="balance">
                                                 <span className="label">Location of site</span>
@@ -225,7 +250,6 @@ function Events() {
                                                     <span className="label">Date of site</span>
                                                     {event.date}
                                                 </div>
-
                                                 <div className="bottom">
                                                     <div className="card-number">
                                                         <span className="label">Reporting time</span>
@@ -250,6 +274,7 @@ function Events() {
 
 
 
+
                 {/* events */}
                 <div className="section-heading padding">
                     <h2 className="title">Works for Boys</h2>
@@ -261,9 +286,16 @@ function Events() {
                             <div className={`card-block mb-2 ${bootstrapColors[index % bootstrapColors.length]}`}>
                                 <div className="card-main">
                                     <div className="card-button dropdown">
-                                        <button className="btn btn-warning rounded" onClick={() => handleAddButtonClick(event._id)}>
-                                            Add
-                                        </button>
+                                        {Array.isArray(isEvent) && isEvent.includes(event._id) ? (
+                                            <button className="rounded btn btn-success" disabled>
+                                                ✔
+                                            </button>
+                                        ) : (
+                                            <button className="btn btn-warning rounded" onClick={() => handleAddButtonClick(event._id)}>
+                                                Add
+                                            </button>
+                                        )}
+
                                     </div>
                                     <div className="balance">
                                         <span className="label">Location of site</span>
@@ -274,7 +306,6 @@ function Events() {
                                             <span className="label">Date of site</span>
                                             {event.date}
                                         </div>
-
                                         <div className="bottom">
                                             <div className="card-number">
                                                 <span className="label">Reporting time</span>
@@ -294,6 +325,7 @@ function Events() {
                         </div>
                     )
                 ))}
+
 
             </div>
 

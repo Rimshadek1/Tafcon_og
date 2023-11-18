@@ -101,19 +101,6 @@ function Editevent() {
                         </div>
 
                         <div className="form-group mt-2">
-                            <label htmlFor="Slot_leftcaptain">Slot Left for captain</label>
-                            <input
-                                type="number"
-                                className="form-control"
-                                name="Slot_leftcaptain"
-                                placeholder="Slot_left for captain"
-                                id="Slot_leftcaptain"
-                                value={values?.slotCap || ""}
-                                onChange={e => setValues({ ...values, slotCap: e.target.value })}
-
-                            />
-                        </div>
-                        <div className="form-group mt-2">
                             <label htmlFor="Slot_left_mainboy">Slot Left for Main body</label>
                             <input
                                 type="number"

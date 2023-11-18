@@ -15,8 +15,8 @@ function Dashboard() {
             if (res.data && Array.isArray(res.data.events)) {
                 const formattedEvents = res.data.events.map((event) => ({
                     title: event.event,
-                    start: new Date(event.date), // Assuming date is in ISO format
-                    end: new Date(event.date),   // Same as start for all-day events
+                    start: new Date(event.date),
+                    end: new Date(event.date),
                     ref: event.ref,
                     location: event.location,
                 }));
@@ -27,8 +27,6 @@ function Dashboard() {
     }, []);
     const EventDisplay = ({ event }) => (
         <div>
-            <strong>{event.title}</strong>
-            <br />
             <div><strong>Location:</strong> {event.location}</div>
             <div><strong>Ref:</strong> {event.ref}</div>
         </div>
@@ -68,26 +66,27 @@ function Dashboard() {
                         Site details
                     </Link>
                 </div>
+                <div className="col">
+                    <Link to='/addeventdate' className=' btn btn-primary ml-auto'>
+                        addeventdate
+                    </Link>
+                </div>
             </div>
             <Calendar
                 localizer={localizer}
                 events={events}
                 startAccessor="start"
                 endAccessor="end"
-                // style={{ height: 300 }}
                 components={{
                     event: EventDisplay,
-
                 }}
+                className="mobile-calendar"
                 style={{
-                    marginLeft: '80px',
-                    height: 600,
-                    width: 800,
+                    height: 500,
                     border: '1px solid #ddd',
                     borderRadius: '5px',
                     boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.2)',
                 }}
-
                 onSelectEvent={(event) => {
                     alert(`Event Ref: ${event.ref}, Event Location:${event.location}`);
                 }}

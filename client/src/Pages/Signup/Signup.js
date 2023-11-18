@@ -143,7 +143,7 @@ function Signup() {
 
                                 <div className="form-group basic">
                                     <div className="input-wrapper">
-                                        <label className="label" htmlFor="age">Age (In between 18-35 years old)</label>
+                                        <label className="label" htmlFor="age">Age (In between 17-35 years old)</label>
                                         <input
                                             type="number"
                                             className="form-control"
@@ -238,7 +238,7 @@ function Signup() {
                                 </div>
                                 <div className="form-group basic">
                                     <div className="input-wrapper">
-                                        <label className="label" htmlFor="password1">Password (must contain at least one alphabet, one number, one special character, and be a minimum of 6 characters).<br /> Please remember, there is no way to change or update your password.</label>
+                                        <label className="label" htmlFor="password1">Password (must contain at least one alphabet, one number, one special character, and be a minimum of 6 characters).</label>
                                         <input
                                             type="password"
                                             required

@@ -1,4 +1,16 @@
-.calendar {
-    width: 400px;
-    height: 300px;
+/* Dashboard.css */
+
+/* Add a class for mobile styles */
+.mobile-calendar {
+    width: 100%;
+    margin-left: 0;
+    /* Adjust the margin for smaller screens */
+}
+
+/* Apply different styles for larger screens */
+@media (min-width: 768px) {
+    .mobile-calendar {
+        width: 1200px;
+        margin-left: 80px;
+    }
 }

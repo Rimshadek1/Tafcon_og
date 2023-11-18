@@ -2,13 +2,14 @@ import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../UserContext/UserContext';
-
 function Login() {
 
     const [number, setNumber] = useState()
     const [password, setPassword] = useState()
     const navigate = useNavigate();
     const { setLoggedInUsername, setId } = useContext(UserContext);
+
+
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -48,19 +49,6 @@ function Login() {
 
     return (
         <div>
-            {/* App Header */}
-            <div className="appHeader no-border transparent position-absolute">
-                <div className="left">
-                    <a href="#" className="headerButton goBack">
-                        <ion-icon name="chevron-back-outline"></ion-icon>
-                    </a>
-                </div>
-                <div className="pageTitle"></div>
-                <div className="right">
-
-                </div>
-            </div>
-            {/* * App Header */}
 
             {/* App Capsule */}
             <div id="appCapsule">
@@ -87,9 +75,7 @@ function Login() {
                                             required
                                             onChange={(e) => setNumber(e.target.value)}
                                         />
-                                        <i className="clear-input">
-                                            <ion-icon name="close-circle"></ion-icon>
-                                        </i>
+
                                     </div>
                                 </div>
 
@@ -99,7 +85,7 @@ function Login() {
                                             Password
                                         </label>
                                         <input
-                                            type="password"
+                                            type='password'
                                             className="form-control"
                                             id="password1"
                                             name="password1"
@@ -107,19 +93,19 @@ function Login() {
                                             placeholder="Your password"
                                             onChange={(e) => setPassword(e.target.value)}
                                         />
-                                        <i className="clear-input">
-                                            <ion-icon name="close-circle"></ion-icon>
-                                        </i>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+
 
                         <div className="form-links mt-2">
                             <div>
                                 <Link to="/signup" className='text-warning'>Register Now</Link>
                             </div>
 
+                            <div><Link to="/forgetpassword" class="text-muted text-warning">Forgot Password?</Link></div>
                         </div>
 
                         <div className="form-button-group transparent">
@@ -132,9 +118,9 @@ function Login() {
                         </div>
                     </form>
                 </div>
-            </div>
+            </div >
             {/* * App Capsule */}
-        </div>
+        </div >
     )
 }
 

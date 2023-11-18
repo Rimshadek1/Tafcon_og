@@ -129,7 +129,7 @@ function Home() {
     };
 
     // Bootstrap color classes
-    const bootstrapColors = ['bg-primary', 'bg-warning', 'bg-danger', 'bg-secondary'];
+    const bootstrapColors = ['bg-danger', 'bg-black', 'bg-danger', 'bg-black'];
 
 
 
@@ -145,19 +145,22 @@ function Home() {
 
     //security
     useEffect(() => {
-        axios.get('/')
+        let isMounted = true;
+
+        axios.get('/home')
             .then(res => {
-                if (res.data.status === 'please_load_again') {
+                if (isMounted && res.data.role) {
                     setRole(res.data.role);
-                    console.log(res.data.role);
                     navigate('/');
-                } else {
-                    navigate('/login');
-                    window.location.reload();
                 }
             })
             .catch(err => console.log(err));
+
+        return () => {
+            isMounted = false;
+        };
     }, []);
+
 
 
     //profilepicture
@@ -263,6 +266,15 @@ function Home() {
         alert('app is under proccessing, please wait until the work is over!!')
     }
 
+    //  Is booked checking
+    const [isEvent, setIsEvent] = useState([]);
+
+    useEffect(() => {
+        axios.get('/isBooked').then(res => {
+            const bookedEvents = res.data.bookedEvents; // Assuming the response structure
+            setIsEvent(bookedEvents);
+        }).catch(err => console.log(err));
+    }, []);
     return (
         <div>
 
@@ -387,14 +399,14 @@ function Home() {
                         </div>
                     </div>
                 </div>
-
+                {/* notification */}
                 <div className="section mt-4">
                     <div className="section-heading">
                         <h2 className="title">Notifications</h2>
                     </div>
 
                     {notifications.length > 0 ? (
-                        <div className='notification bg-warning'>
+                        <div className='notification bg-black rounded text-light'>
                             <ul>
                                 {notifications.map((notification) => (
                                     <li key={notification._id}>
@@ -412,7 +424,7 @@ function Home() {
 
 
 
-
+                {/* transaction */}
                 <div className="section mt-4">
                     <div className="section-heading">
                         <h2 className="title">Transactions</h2>
@@ -483,6 +495,7 @@ function Home() {
                     }
                 </div>
 
+                {/* work */}
 
                 {/* main boys */}
                 {(role === "admin" || role === "main-boy" || role === 'captain') && events.some(event => event.slotMain > 0) && (
@@ -507,22 +520,43 @@ function Home() {
                                             className={`boxes ${bootstrapColors[index % bootstrapColors.length]}`}
                                             key={index}
                                         >
-                                            <div className="content">
-                                                <div>
-                                                    <h3 className='text-white location'>Location</h3>
-                                                    <h1 className='text-white location1'>{event.location}</h1>
+                                            <div className="card-main">
+
+                                                <div className="balance m-2">
+                                                    <span className="label text-secondary">Location of site</span>
+                                                    <h1 className="title text-light">{event.location}</h1>
                                                 </div>
-                                                <div>
-                                                    <h3 className='text-white slot'>Slot Left</h3>
-                                                    <h1 className='text-white slot1'>{event.slotMain}</h1>
+
+                                                <div className="in ms-2 d-flex">
+                                                    <div className="card-number">
+                                                        <span className="label text-secondary">Date of site</span>
+                                                        <br />
+                                                        <h2 className='text-light'>{event.date}</h2>
+                                                    </div>
+                                                    <div className="bottom">
+                                                        <div className="card-number ms-4">
+                                                            <span className="label text-secondary">Reporting time</span>
+                                                            <h2 className='text-light'>{event.time}</h2>
+
+                                                        </div>
+                                                        <div className="card-expiry slot">
+                                                            <span className="label text-secondary">Slots Available</span>
+                                                            <h2 className='text-light'>{event.slotMain}</h2>
+                                                        </div>
+                                                    </div>
+
+                                                    {Array.isArray(isEvent) && isEvent.includes(event._id) ? (
+                                                        <button className="rounded btn btn-success" disabled>
+                                                            ✔
+                                                        </button>
+                                                    ) : (
+                                                        <button className="btn btn-warning rounded" onClick={() => handleAddButtonClickMain(event._id)}>
+                                                            Add
+                                                        </button>
+                                                    )}
+
                                                 </div>
                                             </div>
-                                            <button
-                                                className="btn btn-success rounded add"
-                                                onClick={() => handleAddButtonClickMain(event._id)}
-                                            >
-                                                Add
-                                            </button>
                                         </div>
                                     )
                                 ))}
@@ -530,6 +564,7 @@ function Home() {
                         </div>
                     </div>
                 )}
+
 
 
                 {/* supervisors */}
@@ -555,22 +590,42 @@ function Home() {
                                             className={`boxes ${bootstrapColors[index % bootstrapColors.length]}`}
                                             key={index}
                                         >
-                                            <div className="content">
-                                                <div>
-                                                    <h3 className='text-white location'>Location</h3>
-                                                    <h1 className='text-white location1'>{event.location}</h1>
+                                            <div className="card-main">
+
+                                                <div className="balance m-2">
+                                                    <span className="label text-secondary">Location of site</span>
+                                                    <h1 className="title text-light">{event.location}</h1>
                                                 </div>
-                                                <div>
-                                                    <h3 className='text-white slot'>Slot Left</h3>
-                                                    <h1 className='text-white slot1'>{event.slotSuper}</h1>
+
+                                                <div className="in ms-2 d-flex">
+                                                    <div className="card-number">
+                                                        <span className="label text-secondary">Date of site</span>
+                                                        <br />
+                                                        <h2 className='text-light'>{event.date}</h2>
+                                                    </div>
+                                                    <div className="bottom">
+                                                        <div className="card-number ms-4">
+                                                            <span className="label text-secondary">Reporting time</span>
+                                                            <h2 className='text-light'>{event.time}</h2>
+                                                        </div>
+                                                        <div className="card-expiry slot">
+                                                            <span className="label text-secondary">Slots Available</span>
+                                                            <h2 className='text-light'>{event.slotSuper}</h2>
+                                                        </div>
+                                                    </div>
+
+                                                    {Array.isArray(isEvent) && isEvent.includes(event._id) ? (
+                                                        <button className="rounded btn btn-success" disabled>
+                                                            ✔
+                                                        </button>
+                                                    ) : (
+                                                        <button className="btn btn-warning rounded" onClick={() => handleAddButtonClickSuper(event._id)}>
+                                                            Add
+                                                        </button>
+                                                    )}
+
                                                 </div>
                                             </div>
-                                            <button
-                                                className="btn btn-success rounded add"
-                                                onClick={() => handleAddButtonClickSuper(event._id)}
-                                            >
-                                                Add
-                                            </button>
                                         </div>
                                     )
                                 ))}
@@ -578,7 +633,6 @@ function Home() {
                         </div>
                     </div>
                 )}
-
 
 
 
@@ -606,22 +660,42 @@ function Home() {
                                         className={`boxes ${bootstrapColors[index % bootstrapColors.length]}`}
                                         key={index}
                                     >
-                                        <div className="content">
-                                            <div>
-                                                <h3 className='text-white location'>Location</h3>
-                                                <h1 className='text-white location1'>{event.location}</h1>
+                                        <div className="card-main">
+
+                                            <div className="balance m-2">
+                                                <span className="label text-secondary">Location of site</span>
+                                                <h1 className="title text-light">{event.location}</h1>
                                             </div>
-                                            <div>
-                                                <h3 className='text-white slot'>Slot Left</h3>
-                                                <h1 className='text-white slot1'>{event.slot}</h1>
+
+                                            <div className="in ms-2 d-flex">
+                                                <div className="card-number">
+                                                    <span className="label text-secondary">Date of site</span>
+                                                    <br />
+                                                    <h2 className='text-light'>{event.date}</h2>
+                                                </div>
+                                                <div className="bottom">
+                                                    <div className="card-number ms-4">
+                                                        <span className="label text-secondary">Reporting time</span>
+                                                        <h2 className='text-light'>{event.time}</h2>
+                                                    </div>
+                                                    <div className="card-expiry slot">
+                                                        <span className="label text-secondary">Slots Available</span>
+                                                        <h2 className='text-light'>{event.slotSuper}</h2>
+                                                    </div>
+                                                </div>
+
+                                                {Array.isArray(isEvent) && isEvent.includes(event._id) ? (
+                                                    <button className="rounded btn btn-success" disabled>
+                                                        ✔
+                                                    </button>
+                                                ) : (
+                                                    <button className="btn btn-warning rounded" onClick={() => handleAddButtonClick(event._id)}>
+                                                        Add
+                                                    </button>
+                                                )}
+
                                             </div>
                                         </div>
-                                        <button
-                                            className="btn btn-success rounded add"
-                                            onClick={() => handleAddButtonClick(event._id)}
-                                        >
-                                            Add
-                                        </button>
                                     </div>
                                 )
                             ))}

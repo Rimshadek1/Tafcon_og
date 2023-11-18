@@ -58,6 +58,7 @@
         cursor: pointer;
     }
 
+
 }
 
 .content {
@@ -82,56 +83,19 @@
     cursor: pointer;
 }
 
-.location {
-    position: relative;
-    margin-left: 10px;
-    margin-top: 10px;
-    font-weight: 100;
+.balances {
+    height: 20%;
+    margin: 10px;
 }
 
-.location1 {
-    position: relative;
-    margin-left: 10px;
-    margin-top: -10px;
-    font-weight: 500;
+.balances .label {
+    color: rgb(139, 139, 139);
+}
+
+.balances .title {
+    color: rgb(255, 255, 255);
 }
 
 .slot {
-    position: relative;
-    margin-left: 50px;
-    margin-top: 40px;
-    font-weight: 100;
-}
-
-.slot1 {
-    position: relative;
-    margin-left: 50px;
-    margin-top: -10px;
-    font-weight: 500;
-}
-
-.class {
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
-    display: flex;
-
-}
-
-.classed {
-    margin-top: 5px;
-    margin-left: 7px;
-    color: aliceblue;
-}
-
-.loader {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.notification {
-    height: 100%;
-    width: 100%;
-    border-radius: 10px;
+    margin-left: -70%;
 }

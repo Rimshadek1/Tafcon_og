@@ -7,7 +7,6 @@ function Editrole() {
     const navigate = useNavigate();
     useEffect(() => {
         axios.get(`/edituser/${id}`).then((res) => {
-            console.log(res.data);
             setValues(res.data.user);
         });
     }, [id]);
@@ -45,7 +44,9 @@ function Editrole() {
                                 <option value="A3">A3</option>
                                 <option value="A4">A4</option>
                                 <option value="A5">A5</option>
-                                <option value="supervisor">Supervisor</option>
+                                <option value="S-A3">S-A3</option>
+                                <option value="S-A2">S-A2</option>
+                                <option value="S-A1">S-A1</option>
                                 <option value="main-boy">Main Boy</option>
                                 <option value="captain">Captain</option>
                             </select>

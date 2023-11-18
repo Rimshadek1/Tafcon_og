@@ -1,0 +1,343 @@
+.tafcon {
+    background-image: url(./black.jpg);
+    height: 100%;
+}
+
+.back {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.headerss {
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 0 20px;
+    border-radius: 0 0 10px 10px;
+    background: rgb(43, 42, 42);
+}
+
+.logo img {
+    height: 40px;
+    width: 100%;
+}
+
+.header-list {
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.header-list li {
+    margin: 0 50px;
+}
+
+.header-list a {
+    text-decoration: none;
+    color: white;
+}
+
+.header-list a:hover {
+    color: rgb(222, 0, 0);
+}
+
+.center-text {
+    flex: 1;
+    /* Takes up remaining vertical space */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+/* Your existing styles */
+
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: 120px;
+    background: rgb(43, 42, 42);
+    width: 83%;
+    height: auto;
+}
+
+.text-container {
+    width: 55%;
+    flex: 1;
+    /* Takes up remaining space */
+    margin-right: 20px;
+    /* Adjust as needed */
+}
+
+.text-container h1 {
+    color: rgb(222, 0, 0);
+
+}
+
+.text-container h2 {
+    color: rgb(222, 0, 0);
+
+}
+
+.image-container {
+    width: 45%;
+    border-radius: 30px;
+}
+
+.gallery-image {
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+
+.gallery-image:hover {
+    transform: scale(1.2);
+        /* or any other scaling factor you prefer */
+        transition: transform 0.3s ease;
+        /* add a smooth transition effect */
+}
+
+.gallery {
+    padding: 20px;
+    margin-top: 50px;
+    background: rgb(43, 42, 42);
+    width: 83%;
+    overflow-x: auto;
+    white-space: nowrap;
+    /* Prevent images from wrapping to the next line */
+}
+
+.gallery .row {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* Prevent row wrapping */
+}
+
+.gallery .col-6 {
+    flex: 0 0 22%;
+    /* Adjust to show 3.5 images at a time */
+    margin-right: 2%;
+    /* Adjust for spacing between images */
+}
+
+.gallery .col-6:last-child {
+    margin-right: 0;
+    /* Remove margin from the last column */
+}
+
+/* Your existing styles */
+
+.scroll-buttons {
+    display: flex;
+    opacity: 10%;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.scroll-buttons:hover {
+    opacity: 100%;
+}
+
+.scroll-button {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.scroll-button.left {
+    position: absolute;
+    left: 10px;
+    left: 6%;
+    top: 180%;
+    /* Adjust as needed */
+}
+
+.scroll-button.right {
+    position: absolute;
+    right: 10px;
+    right: 6%;
+    top: 180%;
+    /* Adjust as needed */
+}
+
+.services-header {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background: rgb(43, 42, 42);
+    color: white;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    /* Ensure it's on top of other elements */
+}
+
+
+
+.services {
+    width: 83%;
+    margin-top: 100px;
+    /* Adjust margin based on the header height */
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    /* Distribute services evenly */
+    color: white;
+    background: rgb(43, 42, 42);
+    padding: 20px;
+    border-radius: 0 0 10px 10px;
+    flex-wrap: wrap;
+    /* Allow services to wrap to the next line on smaller screens */
+    margin-left: 8.5%;
+}
+
+.service {
+    width: 30%;
+    /* Adjust width as needed */
+    text-align: center;
+    margin-bottom: 20px;
+
+}
+
+.services h1 {
+    color: #FFF;
+}
+
+.services h3 {
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    background: rgb(222, 0, 0);
+    width: 100%;
+    height: 50px;
+    border-radius: 10px;
+}
+
+.port {
+    color: rgb(255, 72, 0);
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.footer {
+    width: 83%;
+    margin-top: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    color: white;
+    background: rgb(43, 42, 42);
+    margin-left: 8.5%;
+    border-radius: 10px 10px 0 0;
+}
+
+.footer>div {
+    width: calc(33.33% - 20px);
+    /* Adjust width as needed, considering margin */
+    margin-right: 20px;
+}
+
+.footer h3 {
+    /* color: #c29b00; */
+    color: rgb(222, 0, 0);
+}
+
+/* button */
+.buttons-container {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.button-arounder {
+    background: rgb(222, 0, 0);
+    color: hsl(190deg, 10%, 95%);
+
+    transform: translateY(0);
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+
+    --dur: .15s;
+    --delay: .15s;
+    --radius: 16px;
+
+    transition:
+        border-top-left-radius var(--dur) var(--delay) ease-out,
+        border-top-right-radius var(--dur) calc(var(--delay) * 2) ease-out,
+        /* border-bottom-right-radius var(--dur) calc(var(--delay) * 3) ease-out,
+        border-bottom-left-radius var(--dur) calc(var(--delay) * 4) ease-out, */
+        box-shadow calc(var(--dur) * 4) ease-out,
+        transform calc(var(--dur) * 4) ease-out,
+        background calc(var(--dur) * 4) steps(4, jump-end);
+}
+
+.button-arounder:hover,
+.button-arounder:focus {
+    transform: translateY(-10px);
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+
+    border-bottom-left-radius: var(--radius);
+    border-bottom-right-radius: var(--radius);
+    color: hsl(190deg, 10%, 95%);
+}
+
+@media only screen and (max-width: 500px) {
+    .scroll-button.left {
+        position: absolute;
+        left: 10px;
+        left: 1%;
+        top: 360%;
+        /* Adjust as needed */
+    }
+
+    .scroll-button.right {
+        position: absolute;
+        right: 10px;
+        right: 1%;
+        top: 360%;
+        /* Adjust as needed */
+    }
+
+    .newsletter {
+        display: none;
+    }
+
+    .gallery .col-6 {
+        flex: 0 0 40%;
+        /* Adjust to show 3.5 images at a time */
+        margin-right: 10%;
+        /* Adjust for spacing between images */
+    }
+
+    .service {
+        width: 100%;
+        /* Two services per row on larger screens */
+    }
+}

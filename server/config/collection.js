@@ -10,4 +10,6 @@ module.exports = {
     salaryCollection: 'salary',
     captainCollection: 'captain',
     notificationCollection: 'notification',
+    eventdateCollection: 'eventdate',
+    otpCollection: 'otp',
 }

@@ -49,16 +49,11 @@ function Confirmedpdf() {
     useEffect(() => {
         axios.get(`/captain/${id}`)
             .then((res) => {
+                console.log(res.data);
                 if (res.data && res.data.users.length > 0) {
                     // Get an array of all user names
                     const userNames = res.data.users.map(user => user.name);
-
-                    console.log('User Names:', userNames);
-
                     setCaptains(userNames);
-                } else {
-                    alert('No users booked');
-                    navigate('/sitedetails');
                 }
             })
             .catch((err) => {
@@ -74,7 +69,8 @@ function Confirmedpdf() {
             .then((res) => {
                 if (res.data && res.data.users && res.data.users.length > 0) {
                     setValues(res.data.users);
-                } else {
+                }
+                else {
                     alert('No users booked');
                     navigate('/sitedetails');
                 }
@@ -107,6 +103,18 @@ function Confirmedpdf() {
             .then((response) => {
                 if (response.data.status === 'success') {
                     alert('Set Captain successful');
+                    axios.get(`/captain/${id}`)
+                        .then((res) => {
+                            console.log(res.data);
+                            if (res.data && res.data.users.length > 0) {
+                                // Get an array of all user names
+                                const userNames = res.data.users.map(user => user.name);
+                                setCaptains(userNames);
+                            }
+                        })
+                        .catch((err) => {
+                            console.error(err);
+                        });
                 } else if (response.data.status === 'alreadyCaptain') {
                     alert('User is already a captain.');
                 } else {
@@ -131,17 +139,16 @@ function Confirmedpdf() {
 
     //security
     useEffect(() => {
-        axios.get('/')
+
+        axios.get('/home')
             .then(res => {
-                if (res.data.status === 'please_load_again') {
+                if (res.data.role) {
                     setRole(res.data.role);
-                } else {
-                    navigate('/login');
-                    window.location.reload();
                 }
             })
             .catch(err => console.log(err));
     }, []);
+
     return (
         <div>
             {/* header */}
