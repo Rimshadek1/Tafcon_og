@@ -18,7 +18,7 @@ function Login() {
         formData.append('number', number);
         formData.append('password', password);
 
-        axios.post('http://localhost:3000/login', formData)
+        axios.post('/login', formData)
             .then((res) => {
                 if (res.data.status === 'success') {
                     if (res.data.role === 'admin') {
