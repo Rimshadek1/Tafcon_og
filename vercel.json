@@ -1,0 +1,11 @@
+{
+    "buildCommand": "cd client ; yarn install ; yarn build",
+    "outputDirectory": "client/build",
+    "framework": "react",
+    "rewrites": [
+        {
+            "source": "/server/(.*)",
+            "destination": "/server/app.js"
+        }
+    ]
+}
