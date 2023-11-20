@@ -12,7 +12,7 @@ const createError = require('http-errors');
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:4001'],
+    origin: ['https://tafcon-og.vercel.app'],
     methods: ['GET', 'POST', 'DELETE'],
     credentials: true
 }));
