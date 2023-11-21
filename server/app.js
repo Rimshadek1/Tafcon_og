@@ -14,8 +14,10 @@ const app = express();
 app.use(cors({
     origin: ['*'],
     methods: ['GET', 'POST', 'DELETE'],
-    credentials: true
+    credentials: true,
+    allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
 app.use('/public', express.static(__dirname + '/public'));
 
 app.use(logger('dev'));
