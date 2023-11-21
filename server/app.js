@@ -30,18 +30,31 @@ app.use('/', indexRouter);
 app.use(bodyParser.json());
 require('dotenv').config();
 
-// Making Build Folder as Public 
-app.use(express.static('static'));
-
-app.get('*', function (req, res) {
-    res.sendFile(path.join(__dirname, 'static/index.html'));
-});
-
-
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
     next(createError(404));
 });
+app.post('/login', (req, res) => {
+    userHelper.doLogin(req.body)
+        .then((response) => {
+            if (response.status) {
+                const token = jwt.sign({
+                    number: response.user.number,
+                    role: response.user.role,
+                    name: response.user.name,
+                    id: response.user._id,
+                }, jwtsecret, { expiresIn: '1d' });
+                res.cookie('token', token, { httpOnly: true, secure: true, sameSite: 'none' });
+                res.json({ status: 'success', role: response.user.role });
+            } else {
+                res.json({ status: 'error', message: response.error });
+            }
+        })
+        .catch((error) => {
+            res.status(500).json({ status: 'error', message: 'An error occurred during login.' });
+        });
+});
+
 
 const Port = process.env.PORT
 
